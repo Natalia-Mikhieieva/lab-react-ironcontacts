@@ -12,11 +12,13 @@ function App() {
     setContacts(deleteContacts);
   };
   function addRandom() {
-    const newContact = Math.floor(Math.random() * contacts.length);
-
-    if (!contacts.includes(newContact)) {
-      setContacts([newContact, ...contacts]);
-    }
+    const remainingContacts = contactJson.slice(5)
+    const newContact = remainingContacts[(Math.floor(Math.random() * remainingContacts.length))]
+    
+    if(!contacts.includes(newContact)){
+      setContacts([newContact,...contacts])
+    } 
+    return console.log(newContact)
   }
   function sortContacts() {
     const sortedContacts = [...contacts];
@@ -45,6 +47,14 @@ function App() {
     });
     setContacts(sortedContacts);
   }
+
+  function deleteContact(contactId) {
+    const filteredContacts = contacts.filter(contact => {
+      return contact.id !== contactId;
+    });
+ 
+    setContacts(filteredContacts);
+  }
   return (
     <div className="App">
       <button onClick={addRandom}>Add a contact</button>
@@ -70,11 +80,9 @@ function App() {
                 </td>
                 <td>{contact.name}</td>
                 <td>{contact.popularity}</td>
-                <td>{contact.wonOscar}</td>
-                <td>{contact.wonEmmy}</td>
-                <button onClick={() => deleteContact(contact.id)}>
-                  Delete contact
-                </button>
+                <td>{contact.wonOscar && <img src="../Trophy.png" alt="" className="trophy"></img>}</td>
+                <td>{contact.wonEmmy && <img src="../Trophy.png" alt="" className="trophy"></img>}</td>
+                <td><button onClick={() => deleteContact(contact.id)}>Delete</button></td>
               </tr>
             );
           })}
