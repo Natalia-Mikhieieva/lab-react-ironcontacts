@@ -4,13 +4,7 @@ import React, { useState } from "react";
 
 function App() {
   const [contacts, setContacts] = useState(contactJson.slice(0, 5));
-
-  const deleteContact = (contactId) => {
-    const deleteContacts = contacts.filter((contact) => {
-      return contact.id !== contactId;
-    });
-    setContacts(deleteContacts);
-  };
+  
   function addRandom() {
     const remainingContacts = contactJson.slice(5)
     const newContact = remainingContacts[(Math.floor(Math.random() * remainingContacts.length))]
